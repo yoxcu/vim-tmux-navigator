@@ -5,8 +5,9 @@ version_pat='s/^tmux[^0-9]*([.0-9]+).*/\1/p'
 is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
     | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|l?n?vim?x?|fzf)(diff)?$'"
 is_leftmost="tmux display -p -t '{left}' '#{pane_index}' | grep '#{pane_index}'"
+go_right="echo 'goright'"
 
-tmux bind-key -n C-h if-shell "$is_vim" "send-keys C-h" "select-pane -L"
+tmux bind-key -n C-h if-shell "$is_vim" $go_right "select-pane -L"
 tmux bind-key -n C-j if-shell "$is_vim" "send-keys C-j" "select-pane -D"
 tmux bind-key -n C-k if-shell "$is_vim" "send-keys C-k" "select-pane -U"
 tmux bind-key -n C-l if-shell "$is_vim" "send-keys C-l" "select-pane -R"
